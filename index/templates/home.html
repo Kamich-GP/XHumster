@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>XHumster | Главная</title>
+</head>
+<body>
+<h1>XHumster | Главная</h1>
+<hr>
+<h2>Категории:</h2>
+{% for c in categories %}
+<p>{{ c }}</p>
+{% endfor %}
+<hr>
+<h2>Продукты:</h2>
+{% for p in products %}
+<p>{{ p }}</p>
+{% endfor %}
+</body>
+</html>
