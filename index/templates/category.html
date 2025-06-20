@@ -10,7 +10,7 @@
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/" class="nav-link px-2 text-secondary">Главная</a></li>
+                <li><a href="/" class="nav-link px-2 text-white">Главная</a></li>
             </ul>
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                 <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
@@ -24,25 +24,13 @@
 </header>
 <hr class="text-white">
 <div class="container d-flex 100">
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
-        <span class="fs-4">Категории</span>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-            {% for c in categories %}
-            <li class="nav-item">
-                <a href="/category/{{ c.id }}" class="nav-link active" aria-current="page">{{ c }}</a>
-            </li>
-            <br>
-            {% endfor %}
-        </ul>
-    </div>
     <div class="container px-4 py-4" id="featured-3">
-        <h2 class="pb-2 border-bottom text-white">Товары</h2>
+        <h2 class="pb-2 border-bottom text-white">Товары по категории <i class="text-warning">"{{ category }}"</i></h2>
         <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
             {% for p in products %}
             <div class="feature col">
                 <h3 class="fs-2 text-white">{{ p }}</h3>
-                <p class="text-white">{{ p.product_des | slice:75}}...</p>
+                <p class="text-white">{{ p.product_des | slice:75 }}...</p>
                 <a href="/product/{{ p.id }}" class="icon-link">Подробнее ></a>
             </div>
             {% endfor %}

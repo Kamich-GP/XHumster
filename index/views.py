@@ -17,4 +17,25 @@ def home_page(request):
     return render(request, 'home.html', context)
 
 
-# Страница в
+# Страница выбранной категории
+def category_page(request, pk):
+    # Достаем данные из БД
+    category = Category.objects.get(id=pk)
+    products = Product.objects.filter(product_category=category)
+
+    # Отправляем данные на фронт
+    context = {
+        'category': category,
+        'products': products
+    }
+    return render(request, 'category.html', context)
+
+
+# Страница выбранного товара
+def product_page(request, pk):
+    # Достаем данные из БД
+    product = Product.objects.get(id=pk)
+
+    # Передаем данные на фронт
+    context = {'product': product}
+    return render(request, 'product.html', context)
