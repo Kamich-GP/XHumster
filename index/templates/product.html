@@ -12,8 +12,9 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/" class="nav-link px-2 text-white">Главная</a></li>
             </ul>
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+            <form action="/search" method="post" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                {% csrf_token %}
+                <input name="search_product" type="search" class="form-control" placeholder="Поиск..." aria-label="Search">
             </form>
             <div class="text-end">
                 <button type="button" class="btn btn-outline-light me-2">Login</button>
@@ -25,7 +26,7 @@
 <div class="container d-flex 100 px-1 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
         <div class="col-10 col-sm-8 col-lg-6">
-            <img src="bootstrap-themes.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="350" height="350" loading="lazy">
+            <img src="{{ product.product_photo.url }}" class="d-block mx-lg-auto img-fluid" alt="{{ product }}" width="700" height="700" loading="lazy">
         </div>
         <div class="col-lg-6"> <h1 class="display-5 fw-bold text-white lh-1 mb-3">{{ product }}</h1>
             <hr class="text-white">

@@ -39,3 +39,23 @@ def product_page(request, pk):
     # Передаем данные на фронт
     context = {'product': product}
     return render(request, 'product.html', context)
+
+
+# Поиск товара
+def search(request):
+    if request.method == 'POST':
+        get_product = request.POST.get('search_product')
+        searched_product = Product.objects.filter(product_name__iregex=get_product)
+
+        if searched_product:
+            context = {
+                'products': searched_product,
+                'request': get_product
+            }
+            return render(request, 'result.html', context)
+        else:
+            context = {
+                'products': '',
+                'request': get_product
+            }
+            return render(request, 'result.html', context)

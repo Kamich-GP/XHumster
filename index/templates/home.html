@@ -12,8 +12,9 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/" class="nav-link px-2 text-secondary">Главная</a></li>
             </ul>
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+            <form action="/search" method="post" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                {% csrf_token %}
+                <input name="search_product" type="search" class="form-control" placeholder="Поиск..." aria-label="Search">
             </form>
             <div class="text-end">
                 <button type="button" class="btn btn-outline-light me-2">Login</button>
@@ -41,6 +42,7 @@
         <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
             {% for p in products %}
             <div class="feature col">
+                <img src="{{ p.product_photo.url }}" width="250" height="250" alt="{{ p }}">
                 <h3 class="fs-2 text-white">{{ p }}</h3>
                 <p class="text-white">{{ p.product_des | slice:75}}...</p>
                 <a href="/product/{{ p.id }}" class="icon-link">Подробнее ></a>
