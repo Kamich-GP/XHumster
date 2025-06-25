@@ -4,6 +4,10 @@ from .forms import RegForm
 from django.views import View
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
+import telebot
+
+# Создаем объект бота
+bot = telebot.TeleBot('7595727446:AAG1qeFElic3BteTRE5iek-deUCdy79jK5g')
 
 
 # Create your views here.
@@ -94,3 +98,54 @@ class Register(View):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+# Добавление товара в корзину
+def add_to_cart(request, pk):
+    if request.method == 'POST':
+        product = Product.objects.get(id=pk)
+
+        if 1 <= int(request.POST.get('product_count')) <= product.product_count:
+            Cart.objects.create(user_id=request.user.id,
+                                user_product=product,
+                                user_pr_amount=int(request.POST.get('product_count'))).save()
+            return redirect('/')
+        return redirect(f'/product/{pk}')
+
+
+# Удаление товара из корзины
+def del_from_cart(request, pk):
+    product_to_del = Product.objects.get(id=pk)
+    Cart.objects.filter(user_product=product_to_del).delete()
+
+    return redirect('/cart')
+
+
+# Отображение корзины
+def show_cart(request):
+    user_cart = Cart.objects.filter(user_id=request.user.id)
+    totals = [round(t.user_product.product_price * t.user_pr_amount, 2) for t in user_cart]
+
+    context = {
+        'cart': user_cart,
+        'total': round(sum(totals), 2)
+    }
+
+    if request.method == 'POST':
+        text = (f'Новый заказ!\n'
+                f'Клиент: {User.objects.get(id=request.user.id).email}\n\n')
+
+        for i in user_cart:
+            product = Product.objects.get(id=i.user_product.id)
+            product.product_count = product.product_count - i.user_pr_amount
+            product.save(update_fields=['product_count'])
+
+            text += (f'Товар: {i.user_product}\n'
+                     f'Количество: {i.user_pr_amount}\n'
+                     f'--------------------------------------\n')
+        text += f'Итого: ${round(sum(totals, 2))}'
+        bot.send_message(6775701667, text)
+        user_cart.delete()
+        return redirect('/')
+
+    return render(request, 'cart.html', context)

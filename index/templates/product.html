@@ -41,8 +41,17 @@
             <p class="lead text-white"><b>Количество на складе:</b> {{ product.product_count }}</p>
             <p class="lead text-white"><b>Категория:</b> <a href="/category/{{ product.product_category.id }}">{{ product.product_category }}</a></p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Купить</button>
+                {% if user.is_authenticated %}
+                <form action="/to-cart/{{ product.id }}" method="post">
+                    {% csrf_token %}
+                    <input type="number" min="1" value="1" name="product_count" class="form-control">
+                    <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                    <button type="button" class="btn btn-outline-secondary">${{ product.product_price }}</button>
+                </form>
+                {% else %}
+                <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Войдите или зарегистрируйтесь, чтобы купить!</button>
                 <button type="button" class="btn btn-outline-secondary btn-lg px-4">${{ product.product_price }}</button>
+                {% endif %}
             </div>
         </div>
     </div>
