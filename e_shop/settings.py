@@ -77,23 +77,23 @@ WSGI_APPLICATION = 'e_shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    'default':{
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'e_shop',
-        'USER': 'postgres',
-        'HOST': 'localhost',
-        'PORT': 5432,
-        'PASSWORD': 'ilovenina334T'
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default':{
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'e_shop',
+#         'USER': 'postgres',
+#         'HOST': 'localhost',
+#         'PORT': 5432,
+#         'PASSWORD': 'ilovenina334T'
+#     }
+# }
 
 
 # Password validation
@@ -146,8 +146,8 @@ SITE_ID = 1
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '33950075175-tmtkpp5s93gp6725421o5rklgcclrt96.apps.googleusercontent.com',
-            'secret': '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',
+            'client_id': 'ВАШ ID',
+            'secret': 'ВАШ СЕКРЕТ',
             'key': ''
         },
         'SCOPE': ['profile', 'email'],

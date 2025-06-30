@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 import telebot
 
 # Создаем объект бота
-bot = telebot.TeleBot('7595727446:AAG1qeFElic3BteTRE5iek-deUCdy79jK5g')
+bot = telebot.TeleBot('ВАШ ТОКЕН')
 
 
 # Create your views here.

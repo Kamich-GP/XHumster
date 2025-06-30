@@ -1,0 +1,15 @@
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Вход через Google</title>
+</head>
+<body>
+    <h2>Вход через Google</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Продолжить</button>
+    </form>
+</body>
+</html>
