@@ -26,9 +26,11 @@
             <input name="password" type="password" class="form-control" id="floatingPassword1" placeholder="Password">
             <label for="floatingPassword1">Пароль</label>
         </div>
+        <a href="{% provider_login_url 'google' process='login' %}">Войти через Google</a>
         <div class="form-check text-start my-3">
         </div>
         <button class="btn btn-primary w-100 py-2" type="submit">Войти</button>
     </form>
+</main>
 </body>
 </html>
