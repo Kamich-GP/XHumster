@@ -5,9 +5,17 @@ from django.views import View
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 import telebot
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
 
 # Создаем объект бота
-bot = telebot.TeleBot('ВАШ ТОКЕН')
+bot = telebot.TeleBot('TOKEN')
+
+# Подключение к Google Sheets
+scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+creds = ServiceAccountCredentials.from_json_keyfile_name('index/credentials.json', scope)
+client = gspread.authorize(creds)
 
 
 # Create your views here.
@@ -136,6 +144,11 @@ def show_cart(request):
                 f'Клиент: {User.objects.get(id=request.user.id).email}\n\n')
 
         for i in user_cart:
+            # Добавление новой записи в Google таблицу
+            table = client.open('Django Заказы')
+            sheet = table.sheet1
+            sheet.append_row([User.objects.get(id=request.user.id).email, i.user_product.product_name, i.user_pr_amount])
+
             product = Product.objects.get(id=i.user_product.id)
             product.product_count = product.product_count - i.user_pr_amount
             product.save(update_fields=['product_count'])
